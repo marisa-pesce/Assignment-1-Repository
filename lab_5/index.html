@@ -293,6 +293,15 @@
       document.querySelector('.instructions').innerHTML = "";
 
       countriesObj = JSON.parse(sessionStorage.getItem('countries'));
+      
+      // get old list element
+      let oldList = document.getElementsByClassName('instructions')[0];
+
+      //create new ordered list
+      let orderedList = document.createElement('ol');
+      orderedList.classList.add('instructions');
+
+      oldList.parentNode.replaceChild(orderedList, oldList);
 
       for (let i = 0; i < 50; i++) {
         randomNumber = Math.floor(Math.random() * countriesObj.length);
