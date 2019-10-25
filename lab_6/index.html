@@ -11,42 +11,38 @@
     <div class="wrapper">
       <div class="header">Test AJAX page</div>
       <button class="button" onclick="loadData()">Load Some JSON</button>
-      <div class="content"></div>
-      <ol class = "list">
-      </ol>
+      <div class="content">
+        <ol class="list1"></ol>
+      </div>
       <div class="footer"></div>
     </div>
   </div>
   <script>
-
-    function getrandom(min,max){
-        let min = Math.ceil(min);
-        let max = Math.floor(max);
-        return Math.floor(Math.random() * (max-min+1)) +min;
-    }
-
-
-
     function loadData() {
       fetch('ajax_sample.json')
         .then(res => res.json())
-        .then(res=> {
-        let  getData = res.map(c => c.name + ", " + c.code) //get json data
-        let data = document.querySelector(".list").innerHTML= ""
+        .then(res => {
+          let getData = res.map(c => c.name + ", " + c.code); //get json data
+          // clear inner text
+          let data = document.querySelector(".list1");
+          data.innerHTML = "";
 
-       
-
-        for(let i = 0; i<15; i+=1) {
-            let name = getrandom(0,242)
-            let item = document.createElement("li")
-            item.innerText = getData[name]  
-            newArray.appendChild(item)
-        }
-    })
+          for (let i = 0; i < 15; i += 1) {
+            let randomElement = getrandom(0, 242);
+            let item = document.createElement("li");
+            item.innerText = getData[randomElement];
+            data.appendChild(item);
+            //newArray.appendChild(item)
+          }
+        })
     }
-        //.then(data => data.map(c => c.code))
-        //.then(data => document.querySelector(".content").innerText = data);
-    
+    //.then(data => data.map(c => c.code))
+    //.then(data => document.querySelector(".content").innerText = data);
+    function getrandom(min, max) {
+      let minimum = Math.ceil(min);
+      let maximum = Math.floor(max);
+      return Math.floor(Math.random() * (maximum - minimum + 1)) + minimum;
+    }
   </script>
 </body>
 
