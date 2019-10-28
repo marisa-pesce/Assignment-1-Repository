@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Test AJAX page</title>
+  <link rel="stylesheet" type="text/css" href="./lab_styles.css">
+</head>
+
+<body>
+  <div class="container">
+    <div class="wrapper">
+      <div class="header">UMD Bus Routes</div>
+      <button class="button" onclick="loadData()">Load Some JSON</button>
+      <div class="content"></div>
+      <div class="footer"></div>
+    </div>
+  </div>
+  <script>
+    function loadData() {
+      fetch('https://api.umd.io/v0/bus/routes') // fetch data
+        .then(res => res.json()) // logs out your response data and returns it to the next step
+        .then(res => res.map(item => item.route_id + ", " + item.title)) //array of route data
+        .then(res => {
+            let content = document.querySelector(".content");
+            content.innerHTML = "";
+
+            let newList = document.createElement("ul")
+
+            for (let i = 0; i <res.length; i++) {
+                let li = document.createElement("li");
+                li.innerText = res[i]
+                newList.appendChild(li)
+            }
+            content.appendChild(newList);
+            console.log(res)
+            return res; //why need this?? works without fine
+        })
+        .then(res => document.querySelector(".header").innerText = "UMD Bus Route " + res[1].split(',')[1]);
+    }
+  </script>
+</body>
+
+</html>
