@@ -47,8 +47,8 @@ app.get('/api', (req, res) => {
   fetch(baseURL)
     .then((r) => r.json())
     .then((data) => {
-      const filteredArray = data.filter((course) => course.course_id.includes('INST'));
-      const finalArray = filteredArray.map((m) => `${m.course_id}: ${m.name}`);
+      let filteredArray = data.filter((course) => course.course_id.includes('INST'));
+      let finalArray = filteredArray.map((m) => `${m.course_id}: ${m.name}`);
       res.send({ finalArray: finalArray });
       console.log(finalArray);
     })
